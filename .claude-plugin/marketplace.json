@@ -4,8 +4,8 @@
     "name": "sonjh919"
   },
   "metadata": {
-    "description": "작업 완료 후 활용하지 못한 Claude Code 기능을 분석하여 개선 제안을 제공하는 스킬",
-    "version": "1.0.0"
+    "description": "Claude Code 활용도 분석, 반복 작업 스킬화 추천 등 작업 개선 스킬 모음",
+    "version": "1.1.0"
   },
   "plugins": [
     {
@@ -15,6 +15,15 @@
       "strict": false,
       "skills": [
         "./skills/tips"
+      ]
+    },
+    {
+      "name": "skillify",
+      "description": "반복 작업 패턴 분석 및 커스텀 스킬화 추천",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/skillify"
       ]
     }
   ]
