@@ -36,6 +36,12 @@
 - **감지 기준**: 많은 파일을 읽으며 탐색했는데 서브에이전트를 쓰지 않은 경우
 - **문서**: https://docs.anthropic.com/en/docs/claude-code/best-practices#use-subagents-for-investigation
 
+### Ctrl+G (에디터에서 편집)
+- **설명**: 프롬프트나 Plan을 기본 텍스트 에디터(VS Code, vim 등)에서 편집
+- **시나리오**: 긴 프롬프트를 작성하거나 Plan을 수정할 때 터미널 입력이 불편할 때
+- **감지 기준**: 매우 긴 프롬프트를 터미널에서 직접 작성한 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/interactive-mode#keyboard-shortcuts
+
 ---
 
 ## 세션 관리
@@ -57,6 +63,12 @@
 - **시나리오**: 잘못된 방향으로 진행했을 때 대화/코드 상태를 복구
 - **감지 기준**: 수동으로 변경 사항을 되돌리거나, 잘못된 접근을 처음부터 다시 시작한 경우
 - **문서**: https://docs.anthropic.com/en/docs/claude-code/best-practices#rewind-with-checkpoints
+
+### --fork-session (세션 분기)
+- **설명**: 기존 세션을 분기하여 다른 접근법을 시도
+- **시나리오**: 현재 세션을 유지하면서 다른 방향으로 실험해보고 싶을 때
+- **감지 기준**: 다른 접근법을 시도하기 위해 세션을 새로 시작한 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/common-workflows#resume-previous-conversations
 
 ---
 
@@ -101,6 +113,18 @@
 - **시나리오**: 린트 수정, 보일러플레이트 생성 등 안전한 반복 작업
 - **감지 기준**: 권한 프롬프트를 반복적으로 승인한 경우
 - **문서**: https://docs.anthropic.com/en/docs/claude-code/permissions
+
+### ! (Bash 모드)
+- **설명**: `!` 접두사로 Claude를 거치지 않고 직접 셸 명령 실행, 결과는 대화에 추가
+- **시나리오**: git status, ls 등 간단한 명령을 빠르게 실행하고 싶을 때
+- **감지 기준**: 단순한 셸 명령을 Claude에게 요청한 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/interactive-mode#bash-mode-with-prefix
+
+### Ctrl+B (백그라운드 실행)
+- **설명**: 실행 중인 Bash 명령이나 에이전트를 백그라운드로 전환
+- **시나리오**: 빌드, 테스트 등 오래 걸리는 명령을 기다리지 않고 다른 작업 계속
+- **감지 기준**: 오래 걸리는 명령이 끝날 때까지 기다린 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/interactive-mode#background-bash-commands
 
 ---
 
@@ -152,6 +176,18 @@
 - **감지 기준**: 매 세션마다 같은 지시를 반복한 경우
 - **문서**: https://docs.anthropic.com/en/docs/claude-code/memory
 
+### /init (CLAUDE.md 자동 생성)
+- **설명**: 현재 프로젝트 구조를 분석하여 CLAUDE.md 초안을 자동 생성
+- **시나리오**: 새 프로젝트에서 CLAUDE.md를 처음 만들 때
+- **감지 기준**: CLAUDE.md가 없는 프로젝트에서 작업한 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/best-practices#write-an-effective-claudemd
+
+### Auto Memory (자동 메모리)
+- **설명**: Claude가 작업 중 학습한 내용(빌드 명령, 디버깅 인사이트 등)을 자동 저장
+- **시나리오**: 세션 간 맥락 유지, 프로젝트별 학습 축적
+- **감지 기준**: 이전 세션에서 이미 해결한 문제를 다시 설명한 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/memory#auto-memory
+
 ### 커스텀 서브에이전트 (.claude/agents/)
 - **설명**: 전문화된 도구/모델/지시를 가진 서브에이전트 정의
 - **시나리오**: 보안 리뷰어, 테스트 작성기 등 반복 사용할 전문 에이전트
@@ -190,6 +226,18 @@
 - **감지 기준**: 같은 명령에 대해 반복적으로 권한 승인한 경우
 - **문서**: https://docs.anthropic.com/en/docs/claude-code/permissions
 
+### 샌드박싱 (/sandbox)
+- **설명**: OS 레벨 격리로 파일시스템/네트워크 접근 제한, Claude가 더 자유롭게 작업 가능
+- **시나리오**: 신뢰할 수 없는 코드를 안전하게 실행하거나, 권한 프롬프트 없이 작업하고 싶을 때
+- **감지 기준**: 보안이 중요한 작업에서 샌드박스 없이 진행한 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/sandboxing
+
+### Status Line (커스텀 상태 줄)
+- **설명**: 터미널 하단에 커스텀 정보(컨텍스트 사용량, git 브랜치 등) 표시
+- **시나리오**: 컨텍스트 사용량을 실시간 모니터링
+- **감지 기준**: 컨텍스트 관리가 필요한 긴 세션에서 상태 확인 수단이 없었던 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/statusline
+
 ---
 
 ## 입출력
@@ -211,6 +259,42 @@
 - **시나리오**: Claude 출력을 다른 스크립트에서 파싱할 때
 - **감지 기준**: 텍스트 출력을 수동으로 파싱한 경우
 - **문서**: https://docs.anthropic.com/en/docs/claude-code/cli-reference
+
+### --json-schema (구조화된 출력)
+- **설명**: JSON Schema를 지정하여 Claude가 해당 스키마에 맞는 검증된 JSON 출력 생성
+- **시나리오**: 데이터 추출, API 응답 생성 등 정형화된 출력이 필요할 때
+- **감지 기준**: Claude 출력을 특정 구조로 변환하는 후처리를 한 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/cli-reference
+
+### 멀티라인 입력
+- **설명**: `\+Enter`, `Option+Enter`, `Ctrl+J` 등으로 여러 줄 입력 가능
+- **시나리오**: 복잡한 프롬프트나 코드 스니펫을 입력할 때
+- **감지 기준**: 긴 프롬프트를 한 줄에 억지로 작성한 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/interactive-mode#multiline-input
+
+### Vim 모드 (/vim)
+- **설명**: vim 스타일 키 바인딩으로 프롬프트 편집
+- **시나리오**: vim에 익숙한 사용자가 효율적으로 프롬프트를 편집하고 싶을 때
+- **감지 기준**: (vim 사용자인 경우에만 해당)
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/interactive-mode#vim-editor-mode
+
+### Task List (Ctrl+T)
+- **설명**: 복잡한 작업의 진행 상황을 터미널 상태 영역에 표시
+- **시나리오**: 다단계 작업에서 어디까지 진행되었는지 추적
+- **감지 기준**: 복잡한 작업의 진행 상황을 파악하기 어려웠던 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/interactive-mode#task-list
+
+### Ctrl+R (히스토리 검색)
+- **설명**: 이전 입력을 검색하여 재사용
+- **시나리오**: 이전에 사용한 프롬프트를 다시 사용하고 싶을 때
+- **감지 기준**: 비슷한 프롬프트를 처음부터 다시 작성한 경우
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/interactive-mode#command-history
+
+### 프롬프트 제안 (Tab)
+- **설명**: Claude가 다음에 할 수 있는 작업을 자동 제안, Tab으로 수락
+- **시나리오**: 다음 단계가 자연스럽게 이어지는 작업 흐름
+- **감지 기준**: (자동 제안이 도움이 될 수 있었던 경우)
+- **문서**: https://docs.anthropic.com/en/docs/claude-code/interactive-mode#prompt-suggestions
 
 ---
 
