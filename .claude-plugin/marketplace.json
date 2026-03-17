@@ -1,0 +1,21 @@
+{
+  "name": "link-claude-skills",
+  "owner": {
+    "name": "sonjh919"
+  },
+  "metadata": {
+    "description": "작업 완료 후 활용하지 못한 Claude Code 기능을 분석하여 개선 제안을 제공하는 스킬",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "tips",
+      "description": "Claude Code 활용도 분석 및 개선 제안",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/tips"
+      ]
+    }
+  ]
+}
